@@ -1,0 +1,10 @@
+#login
+{
+    text-align: center;
+}
+
+.login_form 
+{
+    display: flex;
+    flex-direction: column;
+}

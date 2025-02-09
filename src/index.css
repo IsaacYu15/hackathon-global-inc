@@ -1,0 +1,74 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  margin: 5rem;
+  background-color: var(--color-beige);
+}
+
+:root {
+  /*GENERAL CONTAINER VARIABLES*/
+  --container-width-lg: 76%; /*for desktop*/
+  --container-width-md: 90%; /*for phones and tablets*/
+
+  /*BORDER RADIUS VARIABLES */
+  --border-radius-1: 1rem;
+  --border-radius-2: 0.5rem;
+
+  /*GENERAL TRANSITION VARIABLE*/
+  --transition: all 500ms ease;
+
+  /*COLORS*/
+  --color-beige: #f9f4ea;
+  --color-black: #000000;
+  --color-light-gray: #d3d3d3;
+  --color-dark-gray:  #3b3a3b;
+  --color-white: white;
+}
+
+@font-face {
+  font-family: 'Satoshi-Black';
+  src: url('./fonts/Satoshi/Satoshi-Black.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Satoshi-Medium';
+  src: url('./fonts/Satoshi/Satoshi-Medium.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Satoshi-MediumItalic';
+  src: url('./fonts/Satoshi/Satoshi-MediumItalic.otf') format('opentype');
+}
+
+h1 {
+  font-family: "Satoshi-Black";
+  font-size: 4rem;
+}
+
+h2 {
+  font-family: "Satoshi-Black";
+  font-size: 2rem;
+}
+
+h4 {
+  font-family: "Satoshi-MediumItalic";
+  font-size: 1rem;
+}
+
+p {
+  font-family: "Satoshi-Medium";
+}
+
+a{
+  font-family: "Satoshi-Medium";
+
+  text-decoration: underline; 
+  color: var(--color-black);
+}
+
+a:hover {
+  color: var(--color-dark-gray);
+}

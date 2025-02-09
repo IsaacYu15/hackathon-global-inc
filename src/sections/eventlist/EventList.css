@@ -1,0 +1,27 @@
+#event_list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.event_title {
+  font-size: 5rem;
+}
+
+.header_container {
+  text-align: center;
+  margin: 5%;
+}
+
+.event_listing {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  
+  max-height: 50vh;
+  padding: 2rem;
+}

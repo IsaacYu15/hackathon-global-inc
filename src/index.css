@@ -20,12 +20,24 @@ body{
   /*GENERAL TRANSITION VARIABLE*/
   --transition: all 500ms ease;
 
-  /*COLORS*/
+  /*MARGINS*/
+  --max-width: 75%;
+
+  /*BASE COLORS*/
   --color-beige: #f9f4ea;
   --color-black: #000000;
   --color-light-gray: #d3d3d3;
   --color-dark-gray:  #3b3a3b;
   --color-white: white;
+
+  /*COLOR PALETTE*/
+  --color-yellow: #fbf8cc;
+  --color-orange: #fde4cf;
+  --color-pink: #f1c0e8;
+  --color-purple:#cfbaf0;
+  --color-blue: #a3c4f3;
+  --color-turq: #98f5e1;
+  --color-green: #b9fbc0;
 }
 
 @font-face {
@@ -53,12 +65,17 @@ h2 {
   font-size: 2rem;
 }
 
+h3 {
+  font-family: "Satoshi-Medium";
+  font-size: 1.25rem;
+}
+
 h4 {
   font-family: "Satoshi-MediumItalic";
   font-size: 1rem;
 }
 
-p {
+label, input, p {
   font-family: "Satoshi-Medium";
 }
 
@@ -71,4 +88,22 @@ a{
 
 a:hover {
   color: var(--color-dark-gray);
+}
+
+button {
+  background-color: var(--color-dark-gray);
+  border: none;
+
+  padding: 1rem;
+  border-radius: var(--border-radius-2);
+
+  font-family: "Satoshi-Medium";
+  color: var(--color-white);
+
+  transition: var(--transition);
+}
+
+button:hover{
+  transform: translateY(-0.5rem);
+  background-color: var(--color-black);
 }

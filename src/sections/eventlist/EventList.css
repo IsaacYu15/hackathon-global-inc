@@ -1,6 +1,7 @@
-#event_list {
+.event_container {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1rem;
 }
 
@@ -9,8 +10,12 @@
 }
 
 .header_container {
+  display: flex;
+  flex-direction: column;
   text-align: center;
+
   margin: 5%;
+  gap: 1rem;
 }
 
 .event_listing {
@@ -23,5 +28,8 @@
   scroll-behavior: smooth;
   
   max-height: 50vh;
+  max-width: var(--max-width);
+  height: fit-content;
+  
   padding: 2rem;
 }

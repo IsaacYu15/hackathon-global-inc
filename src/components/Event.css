@@ -4,7 +4,6 @@
   display: flex;
   flex-direction: column;
 
-  background-color: var(--color-white);
   border-radius: var(--border-radius-1);
 }
 
@@ -21,9 +20,21 @@
   text-align: left;
 }
 
+.event_col_container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: left;
+}
+
+
 .left_content {
   padding: 1rem 0 1rem 0;
   width: 50%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .right_content {
@@ -32,6 +43,9 @@
 }
 
 #event .event_dropdown {
+  
+  border-top: 0.15rem solid var(--color-dark-gray);
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;

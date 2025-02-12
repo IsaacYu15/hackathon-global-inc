@@ -5,7 +5,7 @@
 
 body{
   margin: 5rem;
-  background-color: var(--color-beige);
+  background-color: var(--color-bg-blue);
 }
 
 :root {
@@ -24,10 +24,12 @@ body{
   --max-width: 75%;
 
   /*BASE COLORS*/
-  --color-beige: #f9f4ea;
+  --color-bg-blue: #3d5482;
+
   --color-black: #000000;
-  --color-light-gray: #d3d3d3;
-  --color-dark-gray:  #3b3a3b;
+  --color-light-gray: #777777;
+  --color-dark-gray:  #171717;
+  --color-dark-blue: #0e3460;
   --color-white: white;
 
   /*COLOR PALETTE*/
@@ -58,11 +60,15 @@ body{
 h1 {
   font-family: "Satoshi-Black";
   font-size: 4rem;
+
+  color: var(--color-white);
 }
 
 h2 {
   font-family: "Satoshi-Black";
   font-size: 2rem;
+
+  color: var(--color-dark-blue);
 }
 
 h3 {
@@ -81,13 +87,7 @@ label, input, p {
 
 a{
   font-family: "Satoshi-Medium";
-
   text-decoration: underline; 
-  color: var(--color-black);
-}
-
-a:hover {
-  color: var(--color-dark-gray);
 }
 
 button {
@@ -102,6 +102,7 @@ button {
 
   transition: var(--transition);
 }
+
 
 button:hover{
   transform: translateY(-0.5rem);

@@ -14,10 +14,25 @@ const Event = ({
     scrollToEvent(relatedEventId);
   };
 
+  const getDateFromMilliseconds = (milliseconds) => {
+    return new Date(milliseconds).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
+
+  const getTimeFromMilliseconds = (milliseconds) => {
+    return new Date(milliseconds).toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    });
+  };
+
   return (
     <div
       id={eventId}
-      tabIndex="0"
       onClick={() => {
         scrollToEvent(props.id);
       }}
@@ -25,27 +40,19 @@ const Event = ({
       <div
         id="event"
         style={{
-          border: isFocused ? "0.1rem solid #3b3a3b" : "none",
-          backgroundColor: backgroundColor
+          backgroundColor: isFocused ? backgroundColor : "white",
+          height: isFocused ? "auto" : "30vh",
         }}
       >
         <div className="header">
           <h2 className="header_title">{props.name}</h2>
-          <div className="event_row_container">
-            {props.speakers.length > 0 && (
-              <div className="event_row_container">
-                {props.speakers.map((speaker) => (
-                  <h4 key={speaker.id}>{speaker.name}</h4>
-                ))}
-                <h4>•</h4>
-              </div>
-            )}
-
-            <h4>{props.event_type}</h4>
-            <h4>•</h4>
-            <h4>start time: {props.start_time}</h4>
-            <h4>•</h4>
-            <h4>end time: {props.end_time}</h4>
+          <div className="event_info_container">
+            <h4 className="event_type">{props.event_type}</h4>
+            <h4 className="event_time">
+              {getDateFromMilliseconds(props.start_time)}{" "}
+              {getTimeFromMilliseconds(props.start_time)} -{" "}
+              {getTimeFromMilliseconds(props.end_time)}
+            </h4>
           </div>
         </div>
 
@@ -56,22 +63,26 @@ const Event = ({
             height: isFocused ? "auto" : "0",
           }}
         >
-          <div className="left_content">
-            <p>{props.description}</p>
-
-            <div className="event_row_container">
-              {props.public_url ? (
-                <a href={props.public_url}>Workshop Recording</a>
-              ) : null}
+          <div className="event_content">
+            <div className="content_header">
+              {props.speakers.length > 0 && (
+                <div>
+                  {props.speakers.map((speaker) => (
+                    <h4 key={speaker.id}>{speaker.name} </h4>
+                  ))}
+                </div>
+              )}
+              <h3>•</h3>
+              {props.public_url ? <a href={props.public_url} onClick={(e) => e.stopPropagation()}> Public</a> : null}
+              <h3>•</h3>
               {props.private_url ? (
-                <a href={props.private_url}>Sign Up</a>
+                <a href={props.private_url} onClick={(e) => e.stopPropagation()}>Private</a>
               ) : null}
             </div>
-          </div>
 
-          <div className="right_content">
-            <h3>Related Events:</h3>
-            <div className="event_col_container">
+            <p>{props.description}</p>
+            <div className="related_events_container">
+              <h3>Related Events:</h3>
               {props.related_events.length
                 ? props.related_events.map((event) => {
                     const currentEvent = unsortedEvents[event - 1];

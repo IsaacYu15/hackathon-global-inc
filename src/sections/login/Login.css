@@ -8,11 +8,12 @@
     max-width: var(--max-width);
     width: 100%; 
     margin: 0 auto; 
-  }
+
+    color: var(--color-white);
+}
   
   
 .login_form input {
-    
     padding: 1rem;
     font-size: 1.5rem;
     border: 0.1rem solid var( --color-light-gray); 

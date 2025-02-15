@@ -58,13 +58,17 @@ const EventList = () => {
         setUnsortedEvents(response.data);
         var loggedIn = JSON.parse(localStorage.getItem("loggedIn"));
 
-        {/*create a deep copy so we have an unsorted copy of the fetched data to retrieve related events*/}
+        {/*create a shallow copy so we have an unsorted copy of the fetched data to retrieve related events*/}
         let filteredData = [...response.data];
 
         {/*display on public events if not logged in*/}
         if (!loggedIn) {
           filteredData = filteredData.filter( (event) => event.permission === "public" );
+          console.log("user logged in");
         } 
+        else{
+          console.log("user not logged in");
+        }
 
         {/*filter events by type*/}
         if (eventType) {

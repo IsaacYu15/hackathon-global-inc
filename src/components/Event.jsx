@@ -50,7 +50,8 @@ const Event = ({
         <div className="header">
           <h2 className="header_title">{props.name}</h2>
           <div className="event_info_container">
-            <h4 className="event_type">{props.event_type}</h4>
+            {/*_ also denote spaces in our data*/}
+            <h4 className="event_type">{props.event_type.replace(/_/g, " ")}</h4>
             <h4 className="event_time">
               {getDateFromMilliseconds(props.start_time) +
                 getTimeFromMilliseconds(props.start_time) +
@@ -76,7 +77,7 @@ const Event = ({
                   Public
                 </a>
               )}
-              {props.private_url && (
+              {props.private_url && isLoggedIn && (
                 <a
                   href={props.private_url}
                   onClick={(e) => e.stopPropagation()}

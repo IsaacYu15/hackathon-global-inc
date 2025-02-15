@@ -1,9 +1,11 @@
 import React from "react";
-import "./Navbar.css";
+
 import getNavData from "./navData.js";
+import "./Navbar.css";
+
 
 const Navbar = () => {
-  
+
   function logout() {
     localStorage.setItem("loggedIn", false);
   }
@@ -11,7 +13,7 @@ const Navbar = () => {
   return (
     <nav id="navbar">
       <div className="logo">
-        <p>🌍 Hackathon Global Inc.™</p>
+        <p>Hackathon Global Inc.™</p>
       </div>
       <div className="nav_container">
         {getNavData(logout).map((item) => (

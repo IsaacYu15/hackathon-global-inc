@@ -4,63 +4,31 @@ import axios from "axios";
 import Event from "../../components/Event.jsx";
 import Navbar from "../navbar/Navbar.jsx";
 import eventColors from "./eventColors.js";
-
 import "./EventList.css";
+
 import eventLogo from "../../assets/collaboration.png";
 
 const EventList = () => {
+
   const [unsortedEvents, setUnsortedEvents] = useState([]);
   const [events, setEvents] = useState([]);
   const [focusedEventId, setFocusedEventId] = useState(null);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchString, setSearchString] = useState("");
   const [eventType, setEventType] = useState("");
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
   const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
+    setSearchString(e.target.value);
   };
 
   const handleEventTypeChange = (e) => {
     setEventType(e.target.value);
   };
 
-  useEffect(() => {
-    const isLoggedIn = localStorage.getItem("loggedIn");
-
-    axios
-      .get("https://api.hackthenorth.com/v3/events")
-      .then((response) => {
-
-        setUnsortedEvents(response.data);
-
-        let filteredData = [...response.data];
-
-        if (isLoggedIn === "false") {
-          filteredData = filteredData.filter((event) => event.permission === "public");
-          console.log("user is not logged in");
-        } else {
-          console.log("user is logged in");
-        }
-
-        if (eventType) {
-          filteredData = filteredData.filter(
-            (event) => event.event_type === eventType
-          );
-        }
-
-        if (searchQuery.length > 0) {
-          filteredData = filteredData.filter((event) =>
-            event.name.toLowerCase().includes(searchQuery.toLowerCase())
-          );
-        }
-
-        filteredData.sort((a, b) => a.start_time - b.start_time);
-
-        setEvents(filteredData);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [searchQuery, eventType]);
+  {/*creates a unique id which we can use to find any card*/}
+  function generateEventId(id) {
+    return "event_" + id;
+  }
 
   function scrollToEvent(id) {
     const element = document.getElementById(generateEventId(id));
@@ -69,19 +37,60 @@ const EventList = () => {
       return;
     }
 
-    setFocusedEventId(prevId => (prevId === id ? null : id));
+    {/*if the event we clicked has an open drop down menu, close it*/}
+    if (focusedEventId == id) {
+      setFocusedEventId(null);
+      return;
+    }
 
+    setFocusedEventId(id);
     element.scrollIntoView({
       behavior: "smooth",
       block: "center",
       inline: "nearest",
     });
-
   }
 
-  function generateEventId(id) {
-    return "event_" + id;
-  }
+  useEffect(() => {
+    axios
+      .get("https://api.hackthenorth.com/v3/events")
+      .then((response) => {
+        setUnsortedEvents(response.data);
+        var loggedIn = JSON.parse(localStorage.getItem("loggedIn"));
+
+        {/*create a deep copy so we have an unsorted copy of the fetched data to retrieve related events*/}
+        let filteredData = [...response.data];
+
+        {/*display on public events if not logged in*/}
+        if (!loggedIn) {
+          filteredData = filteredData.filter( (event) => event.permission === "public" );
+        } 
+
+        {/*filter events by type*/}
+        if (eventType) {
+          filteredData = filteredData.filter(
+            (event) => event.event_type === eventType
+          );
+        }
+
+        {/*search by name by checking if desired search is substring*/}
+        if (searchString.length > 0) {
+          filteredData = filteredData.filter((event) =>
+            event.name.toLowerCase().includes(searchString.toLowerCase())
+          );
+        }
+
+        filteredData.sort((a, b) => a.start_time - b.start_time);
+
+        setEvents(filteredData);
+        setIsLoggedIn(loggedIn);
+
+        console.log(filteredData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [searchString, eventType]);
 
   return (
     <div id="event_list">
@@ -101,12 +110,16 @@ const EventList = () => {
           <input
             type="text"
             className="filter_style"
-            value={searchQuery}
+            value={searchString}
             onChange={handleSearchChange}
             placeholder="Search Events..."
           />
 
-          <select className="filter_style" onChange={handleEventTypeChange} value={eventType}>
+          <select
+            className="filter_style"
+            onChange={handleEventTypeChange}
+            value={eventType}
+          >
             <option value="">Show All</option>
             <option value="workshop">Workshop</option>
             <option value="tech_talk">Tech Talk</option>
@@ -115,17 +128,18 @@ const EventList = () => {
         </div>
 
         <div className="event_listing">
-          {events.map((event, index) => (
-            <div className="event_card" key={event.id}>
-              <Event
-                props={event}
-                unsortedEvents={unsortedEvents}
-                eventId={generateEventId(event.id)}
-                scrollToEvent={scrollToEvent}
-                isFocused={focusedEventId === event.id}
-                backgroundColor={eventColors[index % eventColors.length]}
-              />
-            </div>
+          {
+          events.map((event, index) => (
+            <Event
+              key={"event_" + event.id}
+              props={event}
+              unsortedEvents={unsortedEvents}
+              eventId={generateEventId(event.id)}
+              scrollToEvent={scrollToEvent}
+              isFocused={focusedEventId === event.id}
+              isLoggedIn={isLoggedIn}
+              backgroundColor={eventColors[index % eventColors.length]}
+            />
           ))}
         </div>
       </div>

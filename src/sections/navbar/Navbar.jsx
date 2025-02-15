@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./Navbar.css";
 import getNavData from "./navData.js";
 
 const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  
   function logout() {
-    localStorage.setItem("loggedIn", "false");
-    setIsLoggedIn(false);
+    localStorage.setItem("loggedIn", false);
   }
-
-  useEffect(() => {
-    setIsLoggedIn(localStorage.getItem("loggedIn") === "true");
-  }, []);
 
   return (
     <nav id="navbar">
@@ -20,7 +14,7 @@ const Navbar = () => {
         <p>🌍 Hackathon Global Inc.™</p>
       </div>
       <div className="nav_container">
-        {getNavData(isLoggedIn, logout).map((item) => (
+        {getNavData(logout).map((item) => (
           <li key={item.id}>
             <a
               className="routes"

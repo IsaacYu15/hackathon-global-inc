@@ -1,4 +1,7 @@
-const getNavData = (loggedIn, logoutFunction) => {
+const getNavData = (logoutFunction) => {
+  {/*fetching isLoggedIn is more robust than saving a logged in variable with useState*/}
+  var loggedIn = JSON.parse(localStorage.getItem("loggedIn"));
+
   return [
     {
       id: 0,

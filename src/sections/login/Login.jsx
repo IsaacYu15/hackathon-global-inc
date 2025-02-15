@@ -1,15 +1,16 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-import "./Login.css";
 import Navbar from "../navbar/Navbar";
 import userData from "./userData";
+import "./Login.css";
 
 const Login = () => {
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
   const navigate = useNavigate();
 
+  {/*display an error pop up if the inputed username and password is not valid*/}
   function validateLogin(event) {
     event.preventDefault();
 
@@ -23,10 +24,10 @@ const Login = () => {
     );
 
     if (isValidUser) {
-      localStorage.setItem("loggedIn", "true");
+      localStorage.setItem("loggedIn", true);
       error.style.display = "none";
 
-      navigate("/events");
+      navigate("/");
     } else {
       error.style.display = "inline";
     }

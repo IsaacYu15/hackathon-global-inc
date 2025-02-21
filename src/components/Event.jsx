@@ -53,7 +53,7 @@ const Event = ({
             {/*_ also denote spaces in our data*/}
             <h4 className="event_type">{props.event_type.replace(/_/g, " ")}</h4>
             <h4 className="event_time">
-              {getDateFromMilliseconds(props.start_time) +
+              {getDateFromMilliseconds(props.start_time) + " " +
                 getTimeFromMilliseconds(props.start_time) +
                 " - " +
                 getTimeFromMilliseconds(props.end_time)}

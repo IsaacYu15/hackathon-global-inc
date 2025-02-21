@@ -56,6 +56,7 @@ const EventList = () => {
       .get("https://api.hackthenorth.com/v3/events")
       .then((response) => {
         setUnsortedEvents(response.data);
+        
         var loggedIn = JSON.parse(localStorage.getItem("loggedIn"));
 
         {/*create a shallow copy so we have an unsorted copy of the fetched data to retrieve related events*/}

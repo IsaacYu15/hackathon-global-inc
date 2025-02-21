@@ -65,10 +65,10 @@ const EventList = () => {
         {/*display on public events if not logged in*/}
         if (!loggedIn) {
           filteredData = filteredData.filter( (event) => event.permission === "public" );
-          console.log("user logged in");
+          console.log("user not logged in");
         } 
         else{
-          console.log("user not logged in");
+          console.log("user logged in");
         }
 
         {/*filter events by type*/}
